@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ランダムリンクページ</title>
+    <script>
+        function getRandomLink() {
+            const random = Math.random() * 100;
+            if (random < 50) {
+                window.location.href = "allowance_lost.html";
+            } else if (random < 70) {
+                window.location.href = "allowance_10.html";
+            } else if (random < 85) {
+                window.location.href = "allowance_50.html";
+            } else if (random < 95) {
+                window.location.href = "allowance_100.html";
+            } else {
+                window.location.href = "allowance_500.html";
+            }
+        }
+
+        window.onload = function() {
+            setTimeout(getRandomLink, 3000); // 3秒後にgetRandomLink関数を実行
+        };
+    </script>
+</head>
+<body>
+    <h1>ランダムリンクページ</h1>
+    <p>ページが自動的に遷移します...</p>
+</body>
+</html>
