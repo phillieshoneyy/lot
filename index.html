@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title></title>
+    <style>
+
+.slide-in {
+  font-size: 30px;
+  font-weight: bold;
+  animation: slideIn 1s ease-out;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="slide-in">スライドする要素</div>
+  </body>
+</html>
