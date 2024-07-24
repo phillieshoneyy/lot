@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おこずかいチャレンジ</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff; /* ページの背景を白に設定 */
+        }
+        .title-container {
+            font-size: 24px;
+            text-align: center; /* 文言を中央に配置 */
+        }
+        .roulette-container {
+            width: 400px; /* ルーレットの幅を広げる */
+            height: 50px;
+            overflow: hidden;
+            border: 2px solid #333;
+            position: relative;
+            border-radius: 10px; /* 枠の角を丸く設定 */
+            margin-bottom: 20px; /* ボタンとの間にスペースを追加 */
+        }
+        .roulette {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            width: 100%; /* ルーレットの幅を100%に設定 */
+        }
+        .item {
+            height: 50px;
+            display: flex;
+            justify-content: center; /* 文言を中央に配置 */
+            align-items: center; /* 文言を中央に配置 */
+            font-size: 24px;
+            background-color: #fff;
+            border-bottom: 1px solid #ccc;
+            text-align: center; /* 文言を中央に配置 */
+            width: 100%; /* アイテムの幅を100%に設定 */
+        }
+        @keyframes spin {
+            0% { top: 0; }
+            100% { top: -1050px; } /* 21項目分の高さに調整 */
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="title-container">
+        <div>【　おこずかいチャレンジ　】</div>
+    </div>
+    <br>
+    <div class="roulette-container">
+        <div class="roulette" id="roulette">
+            <!-- アイテムはJavaScriptで追加 -->
+        </div>
+    </div>
+
+    <button id="startButton">ルーレット スタート！</button>
+
+    <script>
+        const items = [
+            "はずれ",
+            "はずれ",
+            "はずれ",
+            "はずれ",
+            "はずれ",
+            "はずれ",
+            "はずれ",
+            "あたり！【10円 もらえる】",
+            "あたり！【10円 もらえる】",
+            "あたり！【10円 もらえる】",
+            "あたり！【10円 もらえる】",
+            "あたり！【10円 もらえる】",
+            "あたり！【50円 もらえる】",
+            "あたり！【50円 もらえる】",
+            "あたり！【50円 もらえる】",
+            "あたり！【50円 もらえる】",
+            "あたり！【100円 もらえる】",
+            "あたり！【100円 もらえる】",
+            "あたり！【100円 もらえる】",
+            "あたり！【500円 もらえる】",
+            "あたり！【500円 もらえる】"
+        ];
+
+        // 配列をランダムにシャッフルする関数
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // アイテムをシャッフル
+        shuffle(items);
+
+        // シャッフルされたアイテムをルーレットに追加
+        const roulette = document.getElementById('roulette');
+        items.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.textContent = item;
+            roulette.appendChild(div);
+        });
+
+        document.getElementById('startButton').addEventListener('click', () => {
+            const roulette = document.getElementById('roulette');
+            roulette.style.animation = 'spin 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+            document.getElementById('startButton').disabled = true;
+
+            setTimeout(() => {
+                roulette.style.animation = 'none';
+                roulette.style.transition = 'top 1s ease-out';
+                roulette.style.top = `-${(items.length - 1) * 50 + 20}px`; // 「おおあたり」の位置に微調整
+            }, 4000); // ルーレットの停止時間を4秒に変更
+        });
+    </script>
+</body>
+</html>
